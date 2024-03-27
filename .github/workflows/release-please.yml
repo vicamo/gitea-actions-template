@@ -16,6 +16,10 @@ jobs:
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
     steps:
+      - run: |
+          pwd
+          ls -al
+
       - uses: google-github-actions/release-please-action@v4
         id: rp
         with:
@@ -24,17 +28,35 @@ jobs:
           config-file: .github/release-please/release-please-config.json
           manifest-file: .github/release-please/.release-please-manifest.json
 
+      - run: |
+          pwd
+          ls -al
+
       - uses: actions/checkout@v4
         if: ${{ steps.rp.outputs.release_created && env.NODE_AUTH_TOKEN != '' }}
+
+      - run: |
+          pwd
+          ls -al
+
       - uses: actions/setup-node@v4
         if: ${{ steps.rp.outputs.release_created && env.NODE_AUTH_TOKEN != '' }}
         with:
           node-version-file: .node-version
           registry-url: 'https://registry.npmjs.org'
+
+      - run: |
+          pwd
+          ls -al
+
       - run: npm ci
         if: ${{ steps.rp.outputs.release_created && env.NODE_AUTH_TOKEN != '' }}
       - run: npm publish
         if: ${{ steps.rp.outputs.release_created && env.NODE_AUTH_TOKEN != '' }}
+
+      - run: |
+          pwd
+          ls -al
 
       - name: Update major/minor tags
         if: ${{ steps.rp.outputs.release_created }}
