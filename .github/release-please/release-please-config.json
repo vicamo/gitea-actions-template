@@ -37,7 +37,6 @@
   "packages": {
     ".": {
       "changelog-path": "CHANGELOG.md",
-      "include-component-in-tag": false,
       "release-type": "node",
       "extra-files": ["action.yml", "README.md"]
     }
